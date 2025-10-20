@@ -9,4 +9,6 @@ export const token = () => {
     const UserInfo = localStorage.getItem('userInfo');
     const data = JSON.parse(UserInfo);
     return data.token;
-}
+};
+
+
