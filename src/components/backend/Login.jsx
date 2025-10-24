@@ -28,34 +28,34 @@ const Login = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    //console.log(data)
+    try {
+      const res = await fetch(`${apiUrl}authenticate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // <- ok ici
+      });
 
-    const res = await fetch(`${apiUrl}authenticate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+      const result = await res.json();
 
-    const result = await res.json();
-
-    if (result.status == false) {
-      toast.error(result.message)
-    } else {
-      const userInfo = {
-        id: result.id,
-        token: result.token
+      if (!result.status) {
+        toast.error(result.message);
+      } else {
+        const userInfo = {
+          id: result.id,
+          token: result.token
+        };
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        login(userInfo);
+        navigate('/admin/dashboard');
       }
-
-      localStorage.setItem('userInfo', JSON.stringify(userInfo))
-      login(userInfo);
-      navigate('/admin/dashboard');
+    } catch (err) {
+      toast.error("Erreur lors de la connexion !");
+      console.error(err);
     }
-
-
-    //console.log(result);
   }
+
   return (
     <>
       <Header />
