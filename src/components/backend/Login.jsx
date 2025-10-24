@@ -2,10 +2,20 @@ import React, { useContext } from 'react'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 
+const res = await fetch(`${apiUrl}authenticate`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+});
+
+
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from './context/Auth'
+import { apiUrl } from '../common/http';
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -20,10 +30,10 @@ const Login = () => {
   const onSubmit = async (data) => {
     //console.log(data)
 
-    const res = await fetch("http://localhost:8000/api/authenticate", {
+    const res = await fetch(`${apiUrl}authenticate`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     });
