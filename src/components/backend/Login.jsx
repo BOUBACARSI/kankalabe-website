@@ -1,16 +1,6 @@
 import React, { useContext } from 'react'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
-
-const res = await fetch(`${apiUrl}authenticate`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-});
-
-
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
